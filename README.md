@@ -2,6 +2,7 @@
 
 
 CentOS Linux release 7.9.2009 (Core)
+
 Postgresql 9.2.24 Base
 
 Denbun POP版 V3.3P R8.0

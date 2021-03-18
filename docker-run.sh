@@ -18,6 +18,8 @@ docker run -tid --privileged=true \
 -h "${CONTAINER_HOST_NAME}" \
 --name="${DOCKER_CONTAINER_NAME}" \
 -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
+-v /etc/localtime:/etc/localtime:ro \
+-e TZ=Asia/Tokyo \
 -p ${SSH_PORT}:22 -p ${HTTP_PORT}:80 \
 ${DENBUN_BASE_IMAGE_NAME}
 

@@ -11,7 +11,9 @@ https://www.denbun.com/ja/pop/index.html
 
 
 git pull https://github.com/krsuhjunho/centos7-base-denbunmail.git
+
 ./docker-run.sh
+
 Change Port && Hostname && Container Name
 
 

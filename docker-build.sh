@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SOURCE ./docker-run.sh
+source ./docker-run.sh
 TODAY=$(date "+%Y-%m-%d")
 Comment="$1"
 

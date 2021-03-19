@@ -4,7 +4,7 @@ DOCKER_CONTAINER_NAME="denbun-test"
 CONTAINER_HOST_NAME="denbun-test"
 SSH_PORT=22456
 HTTP_PORT=8011
-BASE_IMAGE_NAME="ghrc.io/krsuhjunho/centos7-base-denbun"
+BASE_IMAGE_NAME="ghcr.io/krsuhjunho/centos7-base-denbun"
 SERVER_IP=$(curl -s ifconfig.me)
 ADMIN_URL="cgi-bin/dnpwml/dnpwmlconfig.cgi?"
 USER_URL="cgi-bin/dnpwml/dnpwmljs.cgi"
@@ -17,7 +17,7 @@ docker build -t ${BASE_IMAGE_NAME} .
 
 docker push ${BASE_IMAGE_NAME}
 
-git add .
+git add . --ignore-removal
 git commit -m "${TODAY} ${Comment}"
 git config credential.helper store
 git push origin main

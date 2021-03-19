@@ -1,17 +1,18 @@
-FROM wnwnsgh/centos7-base-systemd
-RUN set -x  yum update -y && yum upgrade -y  && \
-yum install -y epel-release && \
-yum install -y wget htop httpd openssl vim unzip zip \
-ld-linux.so.2 openssh-server openssh-clients git \
-libstdc++.i686 ncdu tree cronie gcc-c++ gnu-make \
-readline-devel zlib-devel &&\
+FROM ghcr.io/krsuhjunho/centos7-base-systemd
+RUN yum install -y httpd ld-linux.so.2 \
+libstdc++.i686  gcc-c++ gnu-make \
+readline-devel zlib-devel make &&\
 systemctl enable httpd; yum clean all
 
 ADD postgresql-9.2.24.tar.gz /usr/local/src
-ADD dnpwmlV33PR80lR9pg92.tar.gz /usr/local/src
-COPY RUN-POSTGRESQL-INIT.sh /usr/local/src/RUN-POSTGRESQL-INIT.sh
-RUN /usr/local/src/RUN-POSTGRESQL-INIT.sh
 
+COPY RUN-POSTGRESQL-INIT.sh /usr/local/src/RUN-POSTGRESQL-INIT.sh
+RUN /usr/local/src/RUN-POSTGRESQL-INIT.sh &&\
+    rm -rf /usr/local/src/RUN-POSTGRESQL-INIT.sh
+
+COPY RUN-DENBUN-INSTALL.sh /usr/local/src/RUN-DENBUN-INSTALL.sh
+RUN /usr/local/src/RUN-DENBUN-INSTALL.sh &&\
+    rm -rf /usr/local/src/*
 
 EXPOSE 22
 EXPOSE 80

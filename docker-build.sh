@@ -4,12 +4,23 @@ DOCKER_CONTAINER_NAME="denbun-test"
 CONTAINER_HOST_NAME="denbun-test"
 SSH_PORT=22456
 HTTP_PORT=8011
-DENBUN_BASE_IMAGE_NAME="ghrc.io/krsuhjunho/centos7-base-denbun"
+BASE_IMAGE_NAME="ghrc.io/krsuhjunho/centos7-base-denbun"
 SERVER_IP=$(curl -s ifconfig.me)
 ADMIN_URL="cgi-bin/dnpwml/dnpwmlconfig.cgi?"
 USER_URL="cgi-bin/dnpwml/dnpwmljs.cgi"
 HTTP_BASE="http://"
+TODAY=$(date "+%Y-%m-%d")
+Comment="$1"
 
+
+docker build -t ${BASE_IMAGE_NAME} .
+
+docker push ${BASE_IMAGE_NAME}
+
+git add .
+git commit -m "${TODAY} ${Comment}"
+git config credential.helper store
+git push origin main
 
 
 docker rm -f ${DOCKER_CONTAINER_NAME}
@@ -21,7 +32,7 @@ docker run -tid --privileged=true \
 -v /etc/localtime:/etc/localtime:ro \
 -e TZ=Asia/Tokyo \
 -p ${SSH_PORT}:22 -p ${HTTP_PORT}:80 \
-${DENBUN_BASE_IMAGE_NAME}
+${BASE_IMAGE_NAME}
 
 
 #docker exec -it ${DOCKER_CONTAINER_NAME} /bin/bash

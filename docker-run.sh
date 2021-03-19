@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#VAR
 DOCKER_CONTAINER_NAME="denbun-test"
 CONTAINER_HOST_NAME="denbun-test"
 SSH_PORT=22456
@@ -12,8 +13,13 @@ HTTP_BASE="http://"
 TIME_ZONE="Asia/Tokyo"
 
 
+DOCKER_CONTAINER_REMOVE()
+{
 docker rm -f ${DOCKER_CONTAINER_NAME}
+}
 
+DOCKER_CONTAINER_CREATE()
+{
 docker run -tid --privileged=true \
 -h "${CONTAINER_HOST_NAME}" \
 --name="${DOCKER_CONTAINER_NAME}" \
@@ -22,15 +28,29 @@ docker run -tid --privileged=true \
 -e TZ=${TIME_ZONE} \
 -p ${SSH_PORT}:22 -p ${HTTP_PORT}:80 \
 ${DENBUN_BASE_IMAGE_NAME}
+}
 
 
-#docker exec -it ${DOCKER_CONTAINER_NAME} /bin/bash
+DOCKER_CONTAINER_BASH()
+{
+docker exec -it ${DOCKER_CONTAINER_NAME} /bin/bash
+}
 
-
+DOCKER_CONTAINER_URL_SHOW()
+{
 echo ""
 echo "Admin URL => ${HTTP_BASE}${SERVER_IP}:${HTTP_PORT}/${ADMIN_URL}"
 echo ""
 echo "User  URL => ${HTTP_BASE}${SERVER_IP}:${HTTP_PORT}/${USER_URL}"
 echo ""
+}
 
+MAIN()
+{
+DOCKER_CONTAINER_REMOVE
+DOCKER_CONTAINER_CREATE
+DOCKER_CONTAINER_BASH
+DOCKER_CONTAINER_URL_SHOW
+}
 
+MAIN

@@ -11,7 +11,7 @@ USER_URL="cgi-bin/dnpwml/dnpwmljs.cgi"
 HTTP_BASE="http://"
 TODAY=$(date "+%Y-%m-%d")
 Comment="$1"
-
+TIME_ZONE="Asia/Tokyo"
 
 docker build -t ${BASE_IMAGE_NAME} .
 
@@ -30,7 +30,7 @@ docker run -tid --privileged=true \
 --name="${DOCKER_CONTAINER_NAME}" \
 -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
 -v /etc/localtime:/etc/localtime:ro \
--e TZ=Asia/Tokyo \
+-e TZ=${TIME_ZONE} \
 -p ${SSH_PORT}:22 -p ${HTTP_PORT}:80 \
 ${BASE_IMAGE_NAME}
 

@@ -4,12 +4,12 @@ DOCKER_CONTAINER_NAME="denbun-test"
 CONTAINER_HOST_NAME="denbun-test"
 SSH_PORT=22456
 HTTP_PORT=8011
-DENBUN_BASE_IMAGE_NAME="ghrc.io/krsuhjunho/centos7-base-denbun"
+DENBUN_BASE_IMAGE_NAME="ghcr.io/krsuhjunho/centos7-base-denbun"
 SERVER_IP=$(curl -s ifconfig.me)
 ADMIN_URL="cgi-bin/dnpwml/dnpwmlconfig.cgi?"
 USER_URL="cgi-bin/dnpwml/dnpwmljs.cgi"
 HTTP_BASE="http://"
-
+TIME_ZONE="Asia/Tokyo"
 
 
 docker rm -f ${DOCKER_CONTAINER_NAME}
@@ -19,7 +19,7 @@ docker run -tid --privileged=true \
 --name="${DOCKER_CONTAINER_NAME}" \
 -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
 -v /etc/localtime:/etc/localtime:ro \
--e TZ=Asia/Tokyo \
+-e TZ=${TIME_ZONE} \
 -p ${SSH_PORT}:22 -p ${HTTP_PORT}:80 \
 ${DENBUN_BASE_IMAGE_NAME}
 

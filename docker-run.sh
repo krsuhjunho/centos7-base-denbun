@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #VAR
-DOCKER_CONTAINER_NAME="denbun-test"
-CONTAINER_HOST_NAME="denbun-test"
+DOCKER_CONTAINER_NAME="centos7-base-denbunmail"
+CONTAINER_HOST_NAME="centos7-base-denbunmail"
 SSH_PORT=22456
 HTTP_PORT=8011
 BASE_IMAGE_NAME="ghcr.io/krsuhjunho/centos7-base-denbun"

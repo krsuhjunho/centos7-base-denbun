@@ -27,8 +27,8 @@ docker push ${BASE_IMAGE_NAME}
 
 GIT_COMMIT_PUSH()
 {
-git add . --ignore-removal
-git commit -m "${TODAY} ${COMMIT_COMMENT}"
+git add -u
+git commit -a -m "${TODAY} ${COMMIT_COMMENT}"
 git config credential.helper store
 git push origin main
 }
